@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+# programmed by MD. Mehedi Hasan
+
+import os
+import glob
+
+def organizer(file_type, target_dir):
+	''' this function moves files.'''
+	
+	move_cmd = 'mv /home/hasan/Downloads/*.' + file_type + ' ' + '/home/hasan/Downloads/' + target_dir
+	count_cmd = '/home/hasan/Downloads/*.' + file_type
+	count = glob.glob(count_cmd)
+
+	if len(count) >= 1:
+	    os.system(move_cmd)
+	    if len(count) == 1:
+	        print('Successfully moved 1 {}.'.format(file_type))
+	    else:
+	        print('Successfully moved {} {}.'.format(len(count), file_type))
+
+def create_dir(dir_name):
+	''' this function creates directory for data.'''
+
+	dir_status = os.path.exists('/home/hasan/Downloads/' + dir_name)
+	if dir_status is False:
+		os.mkdir('/home/hasan/Downloads/' + dir_name)
+
+directories = ['all_photo', 'all_pdf', 'all_mp4']
+for directory in directories:
+	create_dir(directory)
+
+file_types = ['webp', 'jpeg', 'jpg', 'png', 'gif']
+for type in file_types:
+    organizer(type, 'all_photo')
+
+organizer('pdf', 'all_pdf')
+organizer('mp4', 'all_mp4')
+
